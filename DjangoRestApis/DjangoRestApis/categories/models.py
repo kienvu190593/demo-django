@@ -12,9 +12,9 @@ class BaseModel(models.Model):
         abstract = True
 
     description = models.TextField(max_length=500, null=True, blank=True)
-    createDate = models.DateTimeField(auto_created=True, db_column='create_date')
-    updateDate = models.DateTimeField(auto_now=True, db_column='update_date')
-    delFlg = models.BooleanField(default=True, db_column='del_flg')
+    createDate = models.DateTimeField(auto_created=True)
+    updateDate = models.DateTimeField(auto_now=True)
+    delFlg = models.BooleanField(default=True)
 
 class BranchProductTbl(BaseModel):
     class Meta:
