@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import response
-from rest_framework import viewsets, permissions
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, permissions, mixins, generics
 from rest_framework import serializers
 from rest_framework.decorators import action
 from categories.models import *
+from categories.views.filters import (GroupProductFilter)
 from categories.views.serializers.serializer_group_product import (SerializerGroupProduct)
 
 # Create your views here.
@@ -35,4 +37,10 @@ class GroupProductGenericViewSet(viewsets.GenericViewSet):
             raise serializers.ValidationError("làm gì có bản ghi này đâu nhể !")
         else:
             itemExist.objects.update(dlFlg=False)
+
+class GroupProductGenericApis(generics.ListAPIView):
+    queryset = GroupProductTbl.objects.all()
+    serializer_class = SerializerGroupProduct
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = GroupProductFilter
 
